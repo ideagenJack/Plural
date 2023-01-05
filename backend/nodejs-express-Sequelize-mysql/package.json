@@ -1,0 +1,19 @@
+{
+  "name": "nodejs-express-sequelize-mysql",
+  "version": "1.0.0",
+  "description": "Node.js, Sequelize, MySQL and Rest APIs with Express",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "nodejs",
+    "Sequelize",
+    "mysql",
+    "rest",
+    "api",
+    "express"
+  ],
+  "author": "Turing.com",
+  "license": "ISC"
+}
