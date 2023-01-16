@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { connect } from "react-redux";
 import * as bookActions from "../../redux/actions/bookActions";
 import PropTypes from "prop-types";
@@ -12,6 +12,7 @@ class BooksPage extends React.Component {
   state = {
     redirectToAddBookPage: false,
   };
+
   componentDidMount() {
     const { books, actions } = this.props;
 

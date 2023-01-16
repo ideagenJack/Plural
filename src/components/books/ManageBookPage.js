@@ -4,7 +4,6 @@ import * as bookActions from "../../redux/actions/bookActions";
 import PropTypes from "prop-types";
 import BookForm from "./BookForm";
 import { newBook } from "../../../tools/mockData";
-import Spinner from "../common/Spinner";
 import { toast } from "react-toastify";
 
 function ManageBookPage({ books, loadBooks, saveBook, history, ...props }) {
@@ -48,6 +47,7 @@ function ManageBookPage({ books, loadBooks, saveBook, history, ...props }) {
     saveBook(book)
       .then(() => {
         toast.success("Book saved.");
+        loadBooks(book);
         history.push("/books");
       })
       .catch((error) => {
@@ -55,10 +55,7 @@ function ManageBookPage({ books, loadBooks, saveBook, history, ...props }) {
         setErrors({ onSave: error.message });
       });
   }
-
-  return books.length === 0 ? (
-    <Spinner />
-  ) : (
+  return (
     <BookForm
       book={book}
       errors={errors}

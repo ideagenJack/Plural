@@ -5,7 +5,6 @@ const BookList = ({ books, onDeleteClick }) => (
   <table className="table">
     <thead>
       <tr>
-        <th />
         <th>Title</th>
         <th>Author</th>
         <th />
@@ -18,6 +17,7 @@ const BookList = ({ books, onDeleteClick }) => (
             <td>{book.title}</td>
             <td>{book.author}</td>
             <td>
+              <button className="btn btn-outline-danger">Edit</button>
               <button
                 className="btn btn-outline-danger"
                 onClick={() => onDeleteClick(book)}

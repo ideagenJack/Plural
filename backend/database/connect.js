@@ -1,6 +1,6 @@
 const Sequelize = require("sequelize");
 
-let sequelize = new Sequelize("music", "postgres", "Sundance12", {
+let sequelize = new Sequelize("plural", "postgres", "Sundance12", {
   host: "localhost",
   dialect: "postgres",
 });

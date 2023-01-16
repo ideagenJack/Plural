@@ -11,11 +11,13 @@ Relevant source code: https://github.com/typicode/json-server/blob/master/src/cl
 */
 
 /* eslint-disable no-console */
+const book = require("../backend/models/book");
 const jsonServer = require("json-server");
 const server = jsonServer.create();
 const path = require("path");
 const router = jsonServer.router(path.join(__dirname, "db.json"));
-
+const database = require("../backend/database/connect");
+const { request } = require("http");
 // Can pass a limited number of options to this to override (some) defaults. See https://github.com/typicode/json-server#api
 const middlewares = jsonServer.defaults({
   // Display json-server's built in homepage when json-server starts.
@@ -44,14 +46,33 @@ server.use((req, res, next) => {
   next();
 });
 
-server.post("/books/", function (req, res, next) {
+server.get("/books/", async function (req, res) {
+  const books = await book.findAll();
+  res.json({ books });
+});
+
+server.post("/books/", async function (req, res) {
   const error = validateBook(req.body);
   if (error) {
     res.status(400).send(error);
   } else {
     req.body.slug = createSlug(req.body.title); // Generate a slug for new books.
-    next();
+    const result = await book.create({
+      title: req.body.title,
+      author: req.body.author,
+    });
+    if (result) {
+      res.json({ status: 200, data: result });
+    } else {
+      res.json({ status: 400, data: "Failed to save" });
+    }
   }
+});
+
+server.delete("/books/:id", async function (req, res) {
+  const del = await book.destroy({
+    where: { id: req.params.id },
+  });
 });
 
 // Use default router
@@ -61,6 +82,8 @@ server.use(router);
 const port = 3001;
 server.listen(port, () => {
   console.log(`JSON Server is running on port ${port}`);
+  database.connect();
+  book.sync();
 });
 
 // Centralized logic
