@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 const BookList = ({ books, onDeleteClick }) => (
   <table className="table">
@@ -14,8 +15,12 @@ const BookList = ({ books, onDeleteClick }) => (
       {books.map((book) => {
         return (
           <tr key={book.id}>
-            <td>{book.title}</td>
+            <td>
+              <Link to={"/book/" + book.title}>{book.title}</Link>
+            </td>
+
             <td>{book.author}</td>
+            <td></td>
             <td>
               <button className="btn btn-outline-danger">Edit</button>
               <button

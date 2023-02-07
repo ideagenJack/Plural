@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import * as bookActions from "../../redux/actions/bookActions";
 import PropTypes from "prop-types";
